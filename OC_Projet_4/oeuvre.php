@@ -1,15 +1,20 @@
 <?php
-    include 'header.php';
+    require 'header.php';
+    require 'bdd.php';
+    $db = connexion();
 
     // Si l'URL ne contient pas d'id, on redirige sur la page d'accueil
     if(empty($_GET['id'])) {
         header('Location: index.php');
     }
 
-    $oeuvre = null;
+    $req = $db->prepare('SELECT * FROM oeuvres WHERE id = ?');
+    $req->execute([intval($_GET['id'])]);
+    $oeuvre = $req->fetch();
+
 
     // Si aucune oeuvre trouvé, on redirige vers la page d'accueil
-    if(is_null($oeuvre)) {
+    if(!$oeuvre) {
         header('Location: index.php');
     }
 ?>

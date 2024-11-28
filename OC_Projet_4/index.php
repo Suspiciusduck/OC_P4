@@ -1,6 +1,8 @@
 <?php
+
     require 'header.php';
     require 'bdd.php';
+
     $db = connexion();
     $oeuvres = $db->query('SELECT * FROM oeuvres ORDER BY id ASC');
 ?>
